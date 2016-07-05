@@ -15,5 +15,12 @@
     cache.keys = {
         user: 'user'
     };
+    cache.isLogin = function () {
+        var user = cache.get(cache.keys.user);
+        if (user != null && user != undefined) {
+            return true;
+        }
+        return false;
+    };
     return cache;
 });

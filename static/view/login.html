@@ -1,36 +1,46 @@
 ﻿<div style="margin-top: 5%">
-    <form id="registerForm">
-        <div class="weui_cells_title">用户登录</div>
-        <div class="weui_cells weui_cells_form">
-            <div class="weui_cell">
-                <div class="weui_cell_hd">
-                    <label for="" class="weui_label">手机号</label>
+    <validator name="validation">
+        <form novalidate>
+            <div class="weui_cells_title">用户登录</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label for="" class="weui_label">手机号</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="tel" name="tel" class="weui_input" required="" v-model="phone" pattern="[\d]{8,11}"
+                               notmatchtips="请输入正确的手机号" placeholder="请输入手机号"  initial="off"
+                               v-validate:phone="{ required: true, minlength: 11,maxlength:11 }" >
+                    </div>
+                    <div class="weui_cell_ft">
+                        <i class="weui_icon_warn"></i>
+                    </div>
                 </div>
-                <div class="weui_cell_bd weui_cell_primary">
-                    <input type="tel" name="tel" class="weui_input" required=""  v-model="phone" pattern="[\d]{8,11}" notmatchtips="请输入正确的手机号" placeholder="请输入手机号">
-                </div>
-                <div class="weui_cell_ft">
-                    <i class="weui_icon_warn"></i>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label for="" class="weui_label">密码</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="password" name="password" class="weui_input" v-model="code" required=""
+                               pattern="[\w]{6,}" notmatchtips="密码至少6位" placeholder="请输入密码"  initial="off"
+                               v-validate:code="{ required: true, minlength:6 }">
+                    </div>
+                    <div class="weui_cell_ft">
+                        <i class="weui_icon_warn"></i>
+                    </div>
                 </div>
             </div>
-            <div class="weui_cell">
-                <div class="weui_cell_hd">
-                    <label for="" class="weui_label">密码</label>
-                </div>
-                <div class="weui_cell_bd weui_cell_primary">
-                    <input type="password" name="password" class="weui_input" v-model="code" required="" pattern="[\w]{6,}" notmatchtips="密码至少6位" placeholder="请输入密码">
-                </div>
-                <div class="weui_cell_ft">
-                    <i class="weui_icon_warn"></i>
-                </div>
+            <p class="weui_cells_tips">
+                <label v-if="$validation.phone.required">手机必填</label>
+                <label v-if="$validation.phone.minlength">手机号码不能小于11位</label>
+                <label v-if="$validation.phone.maxlength">手机号码不超过11位</label>
+                <label v-if="$validation.code.minlength">密码至少6位</label>
+            </p>
+            <div class="weui_btn_area">
+                <a href="javascript:;" id="loading" class="weui_btn weui_btn_primary js_btn" v-on:click="login">登录</a>
             </div>
-        </div>
-        <p class="weui_cells_tips"></p>
-
-        <div class="weui_btn_area">
-            <a href="javascript:;" id="loading" class="weui_btn weui_btn_primary js_btn" v-on:click="login">登录</a>
-        </div>
-    </form>
+        </form>
+    </validator>
 </div>
 
 <div class="weui_dialog_alert" v-show="show">
@@ -46,7 +56,7 @@
     </div>
 </div>
 
-<div  class="weui_loading_toast" v-show="toast">
+<div class="weui_loading_toast" v-show="toast">
     <div class="weui_mask_transparent"></div>
     <div class="weui_toast">
         <div class="weui_loading">

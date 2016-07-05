@@ -5,6 +5,9 @@ define(function (require, exports, module) {
     var instance = require('controller/app');
 
     controller.index = function () {
+        if(!cache.isLogin()){
+            return location.href='#!login';
+        }
         instance.$set('currentView', 'home');
     };
 

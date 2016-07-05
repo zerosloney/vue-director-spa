@@ -21,7 +21,6 @@ define(function (require, exports, module) {
             headers: { "X.TOKEN.AUTH": token }
         });
     };
-
     util.swiped = function () {
         Swiped.init({
             query: '.js-swiped .item',

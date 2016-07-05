@@ -1,8 +1,11 @@
 ﻿define(function (require, exports, module) {
     var user = {},
         Vue = require('vue'),
+        validator = require('validator'),
         cache = require('common/cache'),
         data = require('model/userData');
+
+    Vue.use(validator);
 
     user.center = Vue.extend({
         data: function () {
