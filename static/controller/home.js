@@ -4,11 +4,13 @@ define(function (require, exports, module) {
         cache = require('common/cache');
     var instance = require('controller/app');
 
-    controller.index = function () {
-        if(!cache.isLogin()){
-            return location.href='#!login';
+    controller.index = function (page) {
+        if (!cache.isLogin()) {
+            return location.href = '#!login';
         }
+        instance.$set('key','xxx');
         instance.$set('currentView', 'home');
+        instance.$set('key','xxx');
     };
 
     controller.login = function () {

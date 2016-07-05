@@ -5,7 +5,7 @@ define(function (require, exports, module) {
 
     var routes = {
         '': home.index,
-        '!home': home.index,
+        '!home/:page': home.index,
         '!login': home.login
     };
     return Router(routes);

@@ -4,14 +4,27 @@
         validator = require('validator'),
         cache = require('common/cache'),
         data = require('model/userData');
-
     Vue.use(validator);
 
     user.center = Vue.extend({
-        data: function () {
-            return {nickname: '111', mobile: '', orders: 0, coupons: 0};
+        props: {
+            id: String
         },
-        template: require('text!view/home.html')
+        activate: function (done) {
+            console.log(this.id)
+            //异步加载数据
+            done();
+        },
+        data: function () {
+            return {list: data.list};
+        },
+        template: require('text!view/home.html'),
+        events: {
+            'page': function (msg) {
+                this.page = msg;
+                console.log(msg)
+            }
+        }
     });
 
     user.login = Vue.extend({
@@ -22,11 +35,11 @@
         methods: {
             login: function () {
                 if (data.phone == this.phone && data.code == this.code) {
-                   this.toast = true;
+                    this.toast = true;
                     setTimeout(function () {
                         this.toast = false;
                         cache.set(cache.keys.user, JSON.stringify(data));
-                        location.href = '#!home';
+                        location.href = '#!home/1';
                     }, 2000);
                 } else {
                     this.show = true;
